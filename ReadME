@@ -1,6 +1,6 @@
  1. Make Database
  2. Edit on db_conn.py's engine
- 2. Run db_conn.py in the database
- 3. Import building_csv_to_db.csv
+ 2. Run db_conn.py 
+ 3. Import building_csv_to_db.csv in the database
  4. Run the server
  5. Open desing/index.html
