@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>DataTally</title>
+	<script src="./js/jquery-3.0.0.js"></script>
+  	<script></script>
+</head>
+<body>
+<div class="search_container">
+          
+          District <input type="text" class="form-control" id="dist_id" value = "Taplejung"><br/>
+          <button type = "button" class = "send">Send </button>
+          <button type = "button" onclick = "search_query('10901');">New </button>
+
+</div>       
+<div class = "district_list">
+
+</div>
+<div class = "bldg_list">
+
+</div>
+<form role="form" actiom = "" id = "first" method="post">
+                
+
+	<div class = "returned_text">
+
+	</div>
+
+</form>
+</body>
+<script type="text/javascript">
+    function clickadd() {
+    // e.preventDefault();
+	    
+	    var nb_attachments = $('input[type=file]').length;
+
+	    var $input = $('<input type="file" name= "' + $('input[name=fld_Bldg_SID]').val()+'_'+nb_attachments + '" >'); 
+	    // creating an selection option here
+	    
+
+	    $input.on('change', function(evt) {
+	    	console.log("inside");
+	        var f = evt.target.files[0];
+	        $('form').append($(this));
+	        $('ul.list').append('<li class="item">'+f.name+'('+f.size+')</li>');
+	        
+	    });
+	    $input.hide();
+	    $input.trigger('click');
+	    
+    }
+	var siteurl = "http://127.0.0.1:8888/";
+	function search_query(value){
+          var bldg_id = value;
+          if (bldg_id == ""){
+            console.log("Empty");
+            return;
+          }
+         // http://159.203.185.196:1020/?type=aaa&query=thapa&index=0-4 
+          siteurl_tmp = siteurl + "data?bldgid="+bldg_id; 
+          console.log(siteurl_tmp);
+          
+          $.getJSON(siteurl_tmp,function(){})
+          
+          .done(function(data){
+          		$('.returned_text')[0].innerHTML = "";
+                for (var key in data) {
+    				console.log("Value " + data[key] + " key " + key);
+					$('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>");
+				}
+                $('.returned_text').append('Upload Image<button type="button" onclick = "clickadd()" class="add">Add File</button><br/><ul class = "list"></ul></br>')
+                $('.returned_text').append('<button type="submit" >Submit</button>') 
+          }).fail( function(d, textStatus, error) {
+                      console.error("getJSON failed, status: " + textStatus + ", error: "+error)
+                 });       
+ 	}
+  function dist_query(){
+          var bldg_id = $('#dist_id').val();
+          if (bldg_id == ""){
+            console.log("Empty");
+            return;
+          }
+         // http://159.203.185.196:1020/?type=aaa&query=thapa&index=0-4 
+          siteurl_tmp = siteurl + "district?dist="+bldg_id; 
+          console.log(siteurl_tmp);
+          $.getJSON(siteurl_tmp,function(){})
+          .done(function(data){
+              
+              $('.district_list')[0].innerHTML = ""
+              for ( var i in data['values']){
+                console.log(i);
+                $('.district_list').append('<button value="'+data['values'][i]+'">'+data['values'][i]+'</button></br>');
+              }
+              $('.district_list button').click(function () {
+                 get_bldg(this.value);
+              }) 
+          }).fail( function(d, textStatus, error) {
+                      console.error("getJSON failed, status: " + textStatus + ", error: "+error)
+                 });  
+  }
+  
+  function get_bldg(value){
+          var dist_id = $('#dist_id').val();
+          
+          siteurl_tmp = siteurl +"bldg?dist="+dist_id+"&hi="+value;
+          console.log(siteurl_tmp);
+          $.getJSON(siteurl_tmp,function(){})
+          .done(function(data){
+              
+            $('.bldg_list')[0].innerHTML = "<h1>"+value+"</h1>";
+            j = 0;
+            for ( var i in data['values']){
+
+                $('.bldg_list').append('<button value="'+data['ids'][j]+'">'+data['values'][i]+'</button></br>');
+                j = j+1;
+            }
+            $('.bldg_list button').click(function () {
+                  search_query(this.value);
+             });  
+              
+          }).fail( function(d, textStatus, error) {
+                      console.error("getJSON failed, status: " + textStatus + ", error: "+error)
+                 });  
+  }
+	$('.send').click( function(){
+	
+	  	// search_query() 
+	     dist_query()
+  });
+
+	// post request sending
+	$('#first').on('submit', function(e){
+    e.preventDefault();
+    alert(siteurl+"getlabel")
+    var formData = new FormData(this);
+    console.log(formData); 
+    // $('form').serialize();
+    $.ajax({
+       type: "POST",
+       url: siteurl+"send",
+       data: formData, 
+       contentType: false,
+       processData: false,
+       cache:false,
+       success: function(){
+          // console.log($(this).serialize());
+          alert('success');
+          $('#first')[0].innerHTML = "<div class='returned_text'>Please Query For Another</div>"
+
+       }
+    }).fail(function(d , textStatus, error) {
+        console.error("ajaX failed, status: " + textStatus + ", error: "+error)
+    });
+    
+});
+</script>
+</html>
