@@ -3,8 +3,15 @@
 <html lang="en">
 <head>
   <title>DataTally</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<script src="./js/jquery-3.0.0.js"></script>
-  	<script></script>
+  	<script src = "./js/jsons.js"></script>
+
+    <style type="text/css">
+      .selected {
+        border: 2px solid #ddd;
+      }
+    </style>
 </head>
 <body>
 <div class="search_container">
@@ -50,10 +57,12 @@
 	    $input.trigger('click');
 	    
     }
-	var siteurl = "http://127.0.0.1:8888/";
+  // var siteurl = "http://127.0.0.1:8888/";
+	var siteurl = "http://192.168.100.14:8888/";
 	function search_query(value){
           var bldg_id = value;
           if (bldg_id == ""){
+            
             console.log("Empty");
             return;
           }
@@ -64,11 +73,48 @@
           $.getJSON(siteurl_tmp,function(){})
           
           .done(function(data){
-          		$('.returned_text')[0].innerHTML = "";
+          		$('.returned_text')[0].innerHTML = "Building name: " + data["fld_Bldg_NM"] + '</br>Hi New??<input type="radio" name="hi_new" value="1"> Yes<input type="radio" name="hi_new" value="0" checked> No<br>';
+                console.log(data);
+                var to_display = ["fld_Bldg_YOC", "fld_Bldg_GC", "fld_Bldg_Typ","fld_Bldg_FlrAr","fld_Bldg_WPit","fld_Bldg_Plac","fld_Bldg_Inci","fld_Bldg_NM","fld_HI_Name"];
+                
                 for (var key in data) {
-    				console.log("Value " + data[key] + " key " + key);
-					$('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>");
-				}
+      				      // alert("here");
+                    console.log("Value " + data[key] + " key " + key);
+    					        
+                      if (key == 'fld_Bldg_Typ'){
+                        var drop = "<label>fld_Bldg_Typ</label><select name='fld_Bldg_Typ'>"
+                        for (var bldg in bldg_typ) {
+                        drop = drop + "<option value='"+bldg+"'>"+bldg_typ[bldg]+"</option>"
+                        }    
+                        drop = drop + "</select></br>"
+                        $('.returned_text').append(drop);
+                        console.log(data[key]);
+                        $(".returned_text option[value='"+data[key]+"']").attr('selected',true);
+                        continue;   
+                      }
+                      if (["fld_Bldg_WPit","fld_Bldg_Plac","fld_Bldg_Inci"].includes(key)){
+                          var drop = "<label>"+key+"</label><select name='"+key+"' class ='"+key+"'>"
+                          for (var bldg in quality) {
+                            drop = drop + "<option value='"+bldg+"'>"+quality[bldg]+"</option>"
+                          }    
+                          drop = drop + "</select></br>"
+                          $('.returned_text').append(drop);
+                          
+                          $("."+key+" option[value='"+data[key]+"']").attr('selected',true);
+                        
+                          continue;
+                      }  
+                      if (to_display.includes(key)){ $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>"); }
+                      else{
+                        $('.returned_text').append("<input hidden type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>");
+                      }
+				        }
+                $(".returned_text input[name='fld_HI_SID']").val($('.selected').val());
+                $(".returned_text input[name='fld_HI_Name']").val($('.selected').text());
+                $(".returned_text input[name='fld_Dist_NM']").val($('#dist_id').val());
+                $(".returned_text input[name='fld_Dist_ID']").val(district_map.indexOf($('#dist_id').val()));
+
+
                 $('.returned_text').append('Upload Image<button type="button" onclick = "clickadd()" class="add">Add File</button><br/><ul class = "list"></ul></br>')
                 $('.returned_text').append('<button type="submit" >Submit</button>') 
           }).fail( function(d, textStatus, error) {
@@ -86,14 +132,19 @@
           console.log(siteurl_tmp);
           $.getJSON(siteurl_tmp,function(){})
           .done(function(data){
+              console.log("data");
+              console.log(data);
               
               $('.district_list')[0].innerHTML = ""
               for ( var i in data['values']){
                 console.log(i);
-                $('.district_list').append('<button value="'+data['values'][i]+'">'+data['values'][i]+'</button></br>');
+                $('.district_list').append('<button value="'+data['ids'][i]+'">'+data['values'][i]+'</button></br>');
               }
               $('.district_list button').click(function () {
+                 $('.selected').removeClass('selected');
+                 $(this).addClass('selected');
                  get_bldg(this.value);
+
               }) 
           }).fail( function(d, textStatus, error) {
                       console.error("getJSON failed, status: " + textStatus + ", error: "+error)
@@ -116,6 +167,7 @@
                 j = j+1;
             }
             $('.bldg_list button').click(function () {
+                  
                   search_query(this.value);
              });  
               

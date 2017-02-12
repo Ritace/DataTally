@@ -32,6 +32,10 @@ datatable = Table('DataTable', metadata,
 									Column('is_tallied',String(50)),
 									Column('fld_Dist_NM',String(50)),
 									Column('fld_Dist_ID',String(50)),
+									Column('is_new',String(50)),
+									Column('fld_Bldg_WPit',String(50)),
+									Column('fld_Bldg_Plac',String(50)),
+									Column('fld_Bldg_Inci',String(50)),
 									mysql_engine = 'InnoDB',
 									mysql_charset = "utf8")
 
