@@ -58,7 +58,8 @@
 	    
     }
   // var siteurl = "http://127.0.0.1:8888/";
-	var siteurl = "http://192.168.100.14:8888/";
+  var siteurl = "http://192.168.100.14:8888/";
+	var siteurl = "http://192.168.100.18:8888/";
 	function search_query(value){
           var bldg_id = value;
           if (bldg_id == ""){
@@ -104,10 +105,17 @@
                         
                           continue;
                       }  
+                      
+                      if (['fld_Bldg_FlrAr', 'fld_Bldg_GC'].includes(key)) {
+                        $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + (parseFloat(data[key]) * 0.092903) + "'/><br/>");
+                        continue;
+                      }
+
                       if (to_display.includes(key)){ $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>"); }
                       else{
                         $('.returned_text').append("<input hidden type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>");
                       }
+
 				        }
                 $(".returned_text input[name='fld_HI_SID']").val($('.selected').val());
                 $(".returned_text input[name='fld_HI_Name']").val($('.selected').text());

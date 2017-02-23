@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS `DataTable` (
 --
 
 INSERT INTO `DataTable` (`fld_Bldg_SID`, `fld_Bldg_DsgnStd`, `fld_Bldg_ID`, `fld_Bldg_UID`, `fld_Bldg_NM`, `fld_Bldg_HSFU`, `fld_Bldg_Oshp`, `fld_Bldg_YOC`, `fld_Bldg_GC`, `fld_Bldg_Typ`, `fld_Bldg_Use`, `fld_HI_ID`, `fld_HI_SID`, `fld_Bldg_FlrAr`, `fld_Bldg_Img0`, `fld_Bldg_Img1`, `fld_Bldg_Img2`, `fld_Bldg_Img3`, `fld_Bldg_Img4`, `fld_Bldg_Drw`, `fld_HI_Typ`, `fld_HI_Name`, `is_tallied`, `fld_Dist_NM`, `fld_Dist_ID`, `is_new`, `fld_Bldg_WPit`, `fld_Bldg_Plac`, `fld_Bldg_Inci`) VALUES
-('', '', '', '', '', '', '', '123', '123', '30401', '', '', '', '123123', '', '', '', '', '', '', '', '', '1', '', '', '0', '0', '0', '0'),
 ('10300002', '35501', '10201', '1-G-2', 'offfice', '35128', '30202', '2057', '0', '0', '30301', '102', '10200013', '0', '0', '', '', '', '', '0', '0', 'District Ayurvedic Health Center/, Fungling', '0', 'Taplejung', '1', '0', '0', '0', '0'),
 ('10300003', '35501', '10301', '1-S-3', 'Main Building Old', '35154', '30201', '2030', '2247.72', '30404', '30301', '103', '10200014', '2246.688', '0', '0', '0', '0', '0', '0', '0', 'District Health Office/, Taplejung', '0', 'Taplejung', '1', '0', '0', '0', '0'),
 ('10300004', '35501', '10401', '1-S-4', 'OPD, X Ray, OT', '35119', '30201', '2039', '12297.9', '30403', '30301', '104', '10200001', '12297.89', '0', '01-04-01ph902.jpg', '01-04-01ph904.jpg', '01-04-01ph901.jpg', '0', '0', '30101', 'Taplejung District Hospital', '0', 'Taplejung', '1', '0', '0', '0', '0'),
