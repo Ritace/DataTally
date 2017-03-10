@@ -20,12 +20,17 @@
           <button type = "button" class = "send">Send </button>
           <button type = "button" onclick = "search_query('10901');">New </button>
 
+
 </div>       
 <div class = "district_list">
 
 </div>
 <div class = "bldg_list">
 
+</div>
+<div>
+          <button type = "button" class = "sqft">To Sqft </button>
+          <button type = "button" class = "sqm">To Sqm </button>
 </div>
 <form role="form" actiom = "" id = "first" method="post">
                 
@@ -59,7 +64,7 @@
     }
   // var siteurl = "http://127.0.0.1:8888/";
   var siteurl = "http://192.168.100.14:8888/";
-	var siteurl = "http://192.168.100.18:8888/";
+	// var siteurl = "http://192.168.100.18:8888/";
 	function search_query(value){
           var bldg_id = value;
           if (bldg_id == ""){
@@ -76,7 +81,7 @@
           .done(function(data){
           		$('.returned_text')[0].innerHTML = "Building name: " + data["fld_Bldg_NM"] + '</br>Hi New??<input type="radio" name="hi_new" value="1"> Yes<input type="radio" name="hi_new" value="0" checked> No<br>';
                 console.log(data);
-                var to_display = ["fld_Bldg_YOC", "fld_Bldg_GC", "fld_Bldg_Typ","fld_Bldg_FlrAr","fld_Bldg_WPit","fld_Bldg_Plac","fld_Bldg_Inci","fld_Bldg_NM","fld_HI_Name"];
+                var to_display = ["fld_Bldg_YOC", "fld_Bldg_GC", "fld_Bldg_Typ","fld_Bldg_FlrAr","fld_Bldg_WPit","fld_Bldg_Plac","fld_Bldg_Inci","fld_Bldg_NM","fld_HI_Name","is_tallied"];
                 
                 for (var key in data) {
       				      // alert("here");
@@ -106,10 +111,10 @@
                           continue;
                       }  
                       
-                      if (['fld_Bldg_FlrAr', 'fld_Bldg_GC'].includes(key)) {
-                        $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + (parseFloat(data[key]) * 0.092903) + "'/><br/>");
-                        continue;
-                      }
+                      // if (['fld_Bldg_FlrAr', 'fld_Bldg_GC'].includes(key)) {
+                      //   $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + (parseFloat(data[key]) * 0.092903) + "'/><br/>");
+                      //   continue;
+                      // }
 
                       if (to_display.includes(key)){ $('.returned_text').append("<label>"+key+"<input type = 'text' name = '"+key+"' value = '" + data[key] + "'/><br/>"); }
                       else{
@@ -214,5 +219,13 @@
     });
     
 });
+  $('.sqft').click(function(){
+    document.getElementsByName("fld_Bldg_FlrAr")[0].value = (parseFloat(document.getElementsByName("fld_Bldg_FlrAr")[0].value) * 10.7639);
+    document.getElementsByName("fld_Bldg_GC")[0].value = (parseFloat(document.getElementsByName("fld_Bldg_GC")[0].value) * 10.7639);
+  });
+  $('.sqm').click(function(){
+    document.getElementsByName("fld_Bldg_FlrAr")[0].value = (parseFloat(document.getElementsByName("fld_Bldg_FlrAr")[0].value) * 0.092903);
+    document.getElementsByName("fld_Bldg_GC")[0].value = (parseFloat(document.getElementsByName("fld_Bldg_GC")[0].value) * 0.092903);
+  });
 </script>
 </html>
