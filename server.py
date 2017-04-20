@@ -132,8 +132,9 @@ def process_files(file_data,name):
 		file_data[i].save('./images/'+name+"_"+str(j)+'.'+file_data[i].filename.split('.')[len(file_data[i].filename.split('.'))-1])
 		j = j+1
 if __name__ == "__main__":
-    app.run(host='192.168.100.14', port=8888)
-    # app.run(host='192.168.100.18', port=8888)
+    # app.run(host='192.168.100.14', port=8888)
+    app.run(host='192.168.100.18', port=8888)
+    # app.run(host='192.168.100.8', port=8888)
     # app.run(host='127.0.0.1', port=8888)
 
 

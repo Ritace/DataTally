@@ -1,0 +1,65 @@
+count = 4766
+is_tallied = 1103
+is_new_1 = 182 (hi new + building new)
+is_new_2 = 65 (hi new)
+
+
+-----------------------------------------------
+Total Tallied Buildings:	1103
+New HI Added:				65
+New Buildings Added: 		247
+
+total images = 1344
+
+Tallied Districts
+=================
+ID 	DISTRICT 		TOTAL IMAGES
+1 	Taplejung 		0
+3 	Ilam 			41
+4 	Jhapa 			18
+6 	Sunsari 		32
+10 	Terhathum 		20
+13 	Okhaldhunga 	7
+18 	Mahottari 		36
+19 	Sarlahi 		28
+21 	Ramechhap 		1
+22 	Dolakha 		0
+29 	Rasuwa 			22
+33 	Bara 			34
+34 	Parsa 			54
+49 	Rupandehi 		23
+52 	Dang 			36
+53 	Pyuthan 		29
+54 	Rolpa 			25
+55 	Rukum 			33
+57 	Banke 			83
+58 	Bardiya 		48
+60 	Jajarkot 		31
+61 	Dailekh 		51
+62 	Kalikot 		23
+63 	Jumla 			20
+65 	Mugu 			24
+67 	Bajhang 		17
+68 	Bajura 			23
+69 	Achham 			35
+70 	Doti 			33
+71 	Kailali 		48
+74 	Baitadi 		4
+75 	Darchula 		32
+73 	Dadeldhura 		27
+
+
+
+Fields Tallied
+==============
+fld_HI_Name
+fld_Bldg_YOC
+fld_Bldg_Typ
+fld_Bldg_NM
+fld_Bldg_Inci
+fld_Bldg_WPit
+fld_Bldg_GC
+fld_Bldg_FlrAr
+fld_Bldg_Plac
+Images
+-----------------------------------------
