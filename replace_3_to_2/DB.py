@@ -49,7 +49,6 @@ class DB(object):
 
     sql = "UPDATE " + table + " SET "  + ", ".join(["%s = '%s'" %(key, replace_dict[key]) for key in replace_dict]) + " WHERE " + where + ";"
     # print ["%s = %s," %(key, replace_dict[key]) for key in replace_dict]
-    print sql
 
     try:
        self.cursor.execute(sql)
@@ -57,6 +56,7 @@ class DB(object):
        print "success editing %s %s" %(table, where)
     except:
        self.db.rollback()
+       print sql
        print "ERROR editing %s %s" %(table, where)
 
 
@@ -64,7 +64,6 @@ class DB(object):
     # INSERT INTO table SET columnA = 'valueA', columnB = 'valueB'
     sql = "INSERT INTO " + table + " SET "  + ", ".join(["%s = '%s'" %(key, insert_dict[key]) for key in insert_dict]) + ";"
     # print ["%s = %s," %(key, replace_dict[key]) for key in replace_dict]
-    print sql
 
     try:
        self.cursor.execute(sql)
@@ -72,6 +71,7 @@ class DB(object):
        print "success entry %s" %(table)
     except:
        self.db.rollback()
+       print sql
        print "ERROR entry %s" %(table)
 
 

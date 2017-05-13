@@ -78,7 +78,7 @@ blgd_fields_to_replace = ['fld_Bldg_Inci', 'fld_Bldg_HSFU', 'fld_Bldg_YOC', 'fld
 # print dbv3.tables["DataTable"]["fields"].index("fld_Dist_Nm")
 
 def main():
-  rows_dbv3 = dbv3.execute_read("SELECT * FROM DataTable LIMIT 5000 OFFSET 4000")
+  rows_dbv3 = dbv3.execute_read("SELECT * FROM DataTable LIMIT 10000 OFFSET 0")
 
 
   for row in rows_dbv3:
@@ -117,6 +117,9 @@ def main():
 
     if w['fld_HI_ID'] == "":
       w["fld_HI_ID"] = '0'
+
+    if r['fld_HI_ID'] == "":
+      r["fld_HI_ID"] = '0'
 
     if w['fld_HI_ID'] == "":
       w["fld_HI_ID"] = '0'
