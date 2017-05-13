@@ -1,7 +1,8 @@
 import pandas as pd
 from sqlalchemy import *
 # engine = create_engine('mysql+pymysql://root:thapa@localhost/datatally?charset=utf8', pool_recycle=3600)
-engine = create_engine('mysql://root:root@localhost:3001/datatally?charset=utf8', pool_recycle=3600)
+# engine = create_engine('mysql://root:root@localhost:3001/datatally?charset=utf8', pool_recycle=3600)
+engine = create_engine('mysql://root:root@localhost/datatally?charset=utf8', pool_recycle=3600)
 
 connection = engine.connect().connection
 conn = engine.connect()
